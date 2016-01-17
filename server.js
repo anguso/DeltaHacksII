@@ -9,6 +9,8 @@ var port = process.env.PORT || 3000;
 app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use('/bower', express.static('bower_components'));
 app.use('/public/assets', express.static('assets'));
 
@@ -17,10 +19,32 @@ function errorLog (e) {
 }
 
 app.get('/', function (req, res) {
-  request('http://api.openparliament.ca/politicians/?limit=10', function (error, response, body) {
+  var resource = 'http://api.openparliament.ca/politicians/?limit=10';
+  if (req.query.family_name && req.query.given_name) {
+    resource += '&family_name=' + req.query.family_name + '&given_name=' + req.query.given_name;
+  }
+
+  request(resource, function (error, response, body) {
     if (error) res.status(500).send('Something went wrong!');
     body = JSON.parse(body);
     res.render('index', { members: body.objects });
+  });
+});
+
+app.post('/', function (req, res) {
+  request('http://represent.opennorth.ca/postcodes/' + req.body.postal_code, function (error, response, body) {
+    if (error) res.status(500).send('Something went wrong!');
+    body = JSON.parse(body);
+    var representative;
+
+    body.representatives_centroid.forEach(function (rep) {
+      if (rep.elected_office === 'MP') {
+        representative = rep;
+        return;
+      }
+    });
+
+    res.redirect('/?given_name=' + representative.first_name + '&family_name=' + representative.last_name);
   });
 });
 
