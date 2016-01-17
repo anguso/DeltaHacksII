@@ -1,1 +1,10 @@
-<h1>{{hello}}</h1>
+<div class="container-fluid">
+  <div class="page-header">
+    <h1>Find your MP</h1>
+  </div>
+  <div class="list-group">
+    {{#each members}}
+      <a href="{{this.url}}" class="list-group-item">{{this.name}}</a>
+    {{/each}}
+  </div>
+</div>
