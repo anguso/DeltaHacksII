@@ -74,7 +74,7 @@ app.get('/politicians/:id', function (req, res) {
       // calculate yes vs no score
       console.log(member);
       res.render('politicians', member);
-   });
+    });
   });
 });
 
