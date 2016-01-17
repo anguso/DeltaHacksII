@@ -49,8 +49,11 @@ app.post('/', function (req, res) {
 });
 
 app.get('/politicians/:id', function (req, res) {
-  console.log(req.params.id);
-  res.status(200).send('OK');
+  request('http://api.openparliament.ca/politicians/' + req.params.id, function (error, response, body) {
+   if (error) res.status(500).send('Something went wrong');
+   body = JSON.parse(body);
+   res.render('politicians', body);
+  });
 });
 
 // catch all non-registered routes as 404s

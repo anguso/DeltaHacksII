@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="page-header">
+    <h1>Wanna know more about them?</h1>
+  </div>
+  <div>
+    Your MP is {{name}} <br>
+    {{#if other_info.favourite_word}}
+      Favourite word: {{other_info.favourite_word}} <br>
+    {{else}}
+      Favourite word: Not Specified <br>
+    {{/if}}
+    Represents the {{memberships.0.party.name.en}} in {{memberships.0.riding.name.en}}<br>
+    You can get in contact with him at {{email}} or by calling {{voice}} <br>
+    {{!-- Bradley Trost, Mark Warawa, Larry Miller --}}
+  </div>
+  <img src="http://api.openparliament.ca{{image}}" 
+        height="400" 
+        onerror=
+        "if (this.src != 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400') 
+        this.src = 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400';">
+</div>
