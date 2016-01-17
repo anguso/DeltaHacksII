@@ -2,20 +2,26 @@
   <div class="page-header">
     <h1>Wanna know more about them?</h1>
   </div>
-  <div>
-    Your MP is {{name}} <br>
-    {{#if other_info.favourite_word}}
-      Favourite word: {{other_info.favourite_word}} <br>
-    {{else}}
-      Favourite word: Not Specified <br>
-    {{/if}}
-    Represents the {{memberships.0.party.name.en}} in {{memberships.0.riding.name.en}}<br>
-    You can get in contact with him at {{email}} or by calling {{voice}} <br>
-    {{!-- Bradley Trost, Mark Warawa, Larry Miller --}}
+  <div class="row">
+    <div class="col-md-3">
+      <img src="http://api.openparliament.ca{{image}}"
+          height="400"
+          onerror=
+          "if (this.src != 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400')
+          this.src = 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400';">
+    </div>
+    <div class="col-md-9">
+      <h1>{{name}}</h1>
+      <div><b>Favourite word: </b>
+      {{#if other_info.favourite_word}}
+        {{other_info.favourite_word}}
+      {{else}}
+        Favourite word: Not Specified
+      {{/if}}
+      </div>
+      <div>Represents the <b>{{memberships.0.party.name.en}}</b> in <b>{{memberships.0.riding.name.en}}</b></div>
+      <div>You can get in contact with him at {{email}} or by calling {{voice}} </div>
+      {{!-- Bradley Trost, Mark Warawa, Larry Miller --}}
+    </div>
   </div>
-  <img src="http://api.openparliament.ca{{image}}" 
-        height="400" 
-        onerror=
-        "if (this.src != 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400') 
-        this.src = 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400';">
 </div>

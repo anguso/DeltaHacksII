@@ -48,11 +48,24 @@ app.post('/', function (req, res) {
   });
 });
 
+function renderProfileStats (error, response, body) {
+
+}
+
 app.get('/politicians/:id', function (req, res) {
   request('http://api.openparliament.ca/politicians/' + req.params.id, function (error, response, body) {
-   if (error) res.status(500).send('Something went wrong');
-   body = JSON.parse(body);
-   res.render('politicians', body);
+    if (error) res.status(500).send('Something went wrong');
+    var member = JSON.parse(body);
+
+    request('http://api.openparliament.ca' + member.related.ballots_url, function (error, response, body) {
+      if (error) res.status(500).send('Something went wrong');
+      body = JSON.parse(body);
+      member.ballots = body.objects;
+
+      // calculate yes vs no score
+
+      res.render('politicians', member);
+   });
   });
 });
 
