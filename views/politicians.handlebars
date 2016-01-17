@@ -10,17 +10,29 @@
           "if (this.src != 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400')
           this.src = 'http://vignette2.wikia.nocookie.net/mcleodgaming/images/d/d8/MissingNo..png/revision/latest?cb=20131108185400';">
     </div>
-    <div class="col-md-9">
-      <h1>{{name}}</h1>
-      <div><b>Favourite word: </b>
-      {{#if other_info.favourite_word}}
-        {{other_info.favourite_word}}
-      {{else}}
-        Favourite word: Not Specified
-      {{/if}}
+    <div class="col-md-6">
+      <div class="panel">
+        <div class="panel-body">
+          <h1>{{name}}</h1>
+          <div><b>Favourite word: </b>
+          {{#if other_info.favourite_word}}
+            {{other_info.favourite_word}}
+          {{else}}
+            Not Specified
+          {{/if}}
+          </div>
+          <div>Represents the <b>{{memberships.0.party.name.en}}</b> in <b>{{memberships.0.riding.name.en}}</b></div>
+          <div>You can get in contact with him at {{email}} or by calling {{voice}} </div>
+        </div>
+        <div class="panel-body">
+          <label>Positivity Percentage</label>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{positivity}}" aria-valuemin="0" aria-valuemax="100" style="width: {{positivity}}%;">
+              {{positivity}}%
+            </div>
+          </div>
+        </div>
       </div>
-      <div>Represents the <b>{{memberships.0.party.name.en}}</b> in <b>{{memberships.0.riding.name.en}}</b></div>
-      <div>You can get in contact with him at {{email}} or by calling {{voice}} </div>
       {{!-- Bradley Trost, Mark Warawa, Larry Miller --}}
     </div>
   </div>

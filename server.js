@@ -60,10 +60,19 @@ app.get('/politicians/:id', function (req, res) {
     request('http://api.openparliament.ca' + member.related.ballots_url, function (error, response, body) {
       if (error) res.status(500).send('Something went wrong');
       body = JSON.parse(body);
-      member.ballots = body.objects;
+      member.votes = body.objects;
 
+      member.yea = 0;
+      member.nay = 0;
+      member.votes.forEach(function (vote) {
+        if (vote.ballot === "Yes") {
+          member.yea++;
+        }
+      });
+      member.nay = member.votes.length - member.yea;
+      member.positivity = Math.round((member.yea/member.votes.length)*100);
       // calculate yes vs no score
-
+      console.log(member);
       res.render('politicians', member);
    });
   });
