@@ -78,6 +78,10 @@ app.get('/politicians/:id', function (req, res) {
   });
 });
 
+app.get('/about', function (req, res) {
+  res.render('about')
+})
+
 // catch all non-registered routes as 404s
 app.get('*', function (req, res) {
   res.status(404).send('404 Not Found lol.');
