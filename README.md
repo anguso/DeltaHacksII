@@ -1,4 +1,4 @@
-#Who Represents Me? - DeltaHacks II (2016)
+#Who's Representing Me? - DeltaHacks II (2016)
 
 This is a project created for the DeltaHacks II hackathon. It is a simple data visualization/representation tool that allows you to view your Canadian MPs and some stats about them.
 
