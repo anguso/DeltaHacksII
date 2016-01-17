@@ -20,8 +20,12 @@ function errorLog (e) {
 
 app.get('/', function (req, res) {
   var resource = 'http://api.openparliament.ca/politicians/?limit=10';
-  if (req.query.family_name && req.query.given_name) {
-    resource += '&family_name=' + req.query.family_name + '&given_name=' + req.query.given_name;
+  if (req.query.family_name) {
+    resource += '&family_name=' + req.query.family_name;
+  }
+
+  if (req.query.given_name) {
+    resource += '&given_name=' + req.query.given_name;
   }
 
   request(resource, function (error, response, body) {
@@ -32,6 +36,12 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
+
+  if (req.body.given_name || req.body.family_name) {
+    res.redirect('/?given_name=' + (req.body.given_name || '') + '&family_name=' + (req.body.family_name || ''));
+    return;
+  }
+
   request('http://represent.opennorth.ca/postcodes/' + req.body.postal_code, function (error, response, body) {
     if (error) res.status(500).send('Something went wrong!');
     body = JSON.parse(body);
@@ -72,8 +82,23 @@ app.get('/politicians/:id', function (req, res) {
       member.nay = member.votes.length - member.yea;
       member.positivity = Math.round((member.yea/member.votes.length)*100);
       // calculate yes vs no score
-      console.log(member);
-      res.render('politicians', member);
+      request('http://api.openparliament.ca' + member.related.ballots_url + '&dissent=True', function (error, response, body) {
+        if (error) res.status(500).send('Something went wrong');
+        body = JSON.parse(body);
+
+        member.dissentYes = 0;
+        member.dissentNo = 0;
+
+        body.objects.forEach(function (vote) {
+          if (vote.ballot === "Yes") {
+            member.dissentYes++;
+          } else if (vote.ballot === "No") {
+            member.dissentNo++;
+          }
+        });
+
+        res.render('politicians', member);
+      });
     });
   });
 });

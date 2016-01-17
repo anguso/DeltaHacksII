@@ -25,13 +25,16 @@
           <div>You can get in contact with him at {{email}} or by calling {{voice}} </div>
         </div>
         <div class="panel-body">
-          <label>Positivity Percentage</label>
+          <label>Positivity Percentage*</label>
           <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{positivity}}" aria-valuemin="0" aria-valuemax="100" style="width: {{positivity}}%;">
               {{positivity}}%
             </div>
           </div>
+          <label>Dissent (Agreeing to Opposition): </label> {{dissentYes}} <br>
+          <label>Dissent (Disagreeing with Party): </label> {{dissentNo}}
         </div>
+        <div>*Metrics are based off of past 20 bill votes.</div>
       </div>
       {{!-- Bradley Trost, Mark Warawa, Larry Miller --}}
     </div>
